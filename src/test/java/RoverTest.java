@@ -13,27 +13,27 @@ public class RoverTest {
 
   @Test
   public void newInstanceHasAnOrientation() {
-    assertSame("N", rover.orientation());
+    assertSame("N", rover.getOrientation());
   }
 
   @Test
   public void canTurnLeft() {
     rover.turn("L");
-    assertSame("W", rover.orientation());
+    assertSame("W", rover.getOrientation());
     for (int i = 1; i <= 3; i++) {
       rover.turn("L");
     }
-    assertSame("N", rover.orientation());
+    assertSame("N", rover.getOrientation());
   }
 
   @Test
   public void canTurnRight() {
     rover.turn("R");
-    assertSame("E", rover.orientation());
+    assertSame("E", rover.getOrientation());
     for (int i = 1; i <= 3; i++) {
       rover.turn("R");
     }
-    assertSame("N", rover.orientation());
+    assertSame("N", rover.getOrientation());
   }
 
 }

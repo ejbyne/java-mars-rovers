@@ -7,7 +7,7 @@ public class Rover {
     orientationIndex = findOrientationIndex(orientation);
   }
 
-  public String orientation() {
+  public String getOrientation() {
     return orientationOptions[orientationIndex];
   }
 
