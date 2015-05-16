@@ -13,6 +13,7 @@ public class Plateau {
   }
 
   public Cell getCell(String coords) {
+    areValidCoords(coords);
     return grid.get(coords);
   }
 
@@ -25,6 +26,12 @@ public class Plateau {
       for (int y = 0; y <= Integer.parseInt(maxCoords.split(" ")[1]); y++) {
         grid.put(String.format("%s %s", x, y), new Cell());
       }  
+    }
+  }
+
+  private void areValidCoords(String coords) {
+    if (!grid.containsKey(coords)) {
+      throw new IllegalArgumentException("Invalid coordinates");
     }
   }
 

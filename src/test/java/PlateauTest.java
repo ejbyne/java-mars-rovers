@@ -27,7 +27,7 @@ public class PlateauTest {
   }
 
   @Test
-  public void canReturnRequestedCell() {
+  public void canGetSpecifiedCell() {
     assertSame(Cell.class, plateau.getCell("1 2").getClass());
   }
 
@@ -36,6 +36,16 @@ public class PlateauTest {
     String coords = "1 2";
     plateau.placeRover(coords, rover);
     assertSame(rover, plateau.getCell("1 2").getContent());
+  }
+
+  @Test
+  public void willRaiseAnErrorIfSpecifiedCellDoesNotExist() {
+    try {
+      plateau.placeRover("6 6", rover);
+      fail("Expected an illegalArgumentException to be thrown");
+    } catch(IllegalArgumentException anIllegalArgumentException) {
+      assertSame("Invalid coordinates", anIllegalArgumentException.getMessage());
+    }
   }
 
 }
