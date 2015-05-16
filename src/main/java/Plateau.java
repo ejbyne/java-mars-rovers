@@ -13,12 +13,18 @@ public class Plateau {
   }
 
   public Cell getCell(String coords) {
-    areValidCoords(coords);
     return grid.get(coords);
   }
 
   public void placeRover(String coords, Rover rover) {
+    areValidPlaceCoords(coords);
     getCell(coords).setContent(rover);
+  }
+
+  public void moveRover(String startCoords, String endCoords, Rover rover) {
+    areValidMoveCoords(startCoords, endCoords);
+    getCell(startCoords).setContent(null);
+    getCell(endCoords).setContent(rover);
   }
 
   private void createGrid(String maxCoords) {
@@ -29,9 +35,19 @@ public class Plateau {
     }
   }
 
-  private void areValidCoords(String coords) {
+  private void areValidPlaceCoords(String coords) {
     if (!grid.containsKey(coords)) {
       throw new IllegalArgumentException("Invalid coordinates");
+    }
+  }
+
+  private void areValidMoveCoords(String startCoords, String endCoords) {
+    if (!grid.containsKey(endCoords)) {
+      throw new IllegalArgumentException("Cannot move outside plateau. " +
+        "Rover stopped at coordinates " + startCoords);
+    } else if (getCell(endCoords).getContent() != null) {
+      throw new IllegalArgumentException("Cannot move rover onto cell occupied " +
+        "by another rover. Rover stopped at coordinates " + startCoords);
     }
   }
 

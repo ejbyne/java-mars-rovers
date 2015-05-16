@@ -39,12 +39,48 @@ public class PlateauTest {
   }
 
   @Test
-  public void willRaiseAnErrorIfSpecifiedCellDoesNotExist() {
+  public void willRaiseErrorIfSpecifiedCellDoesNotExist() {
     try {
       plateau.placeRover("6 6", rover);
-      fail("Expected an illegalArgumentException to be thrown");
+      fail("Expected an IllegalArgumentException to be thrown");
     } catch(IllegalArgumentException anIllegalArgumentException) {
       assertSame("Invalid coordinates", anIllegalArgumentException.getMessage());
+    }
+  }
+
+  @Test
+  public void canMoveRoverToDifferentCell() {
+    String startCoords = "1 2";
+    String endCoords = "1 3";
+    plateau.placeRover(startCoords, rover);
+    System.out.println(plateau.getCell(endCoords).getContent());
+    plateau.moveRover(startCoords, endCoords, rover);
+    assertSame(null, plateau.getCell(startCoords).getContent());
+    assertSame(rover, plateau.getCell(endCoords).getContent());
+  }
+
+  @Test
+  public void willRaiseErrorIfRoverTriesToMoveOutsidePlateau(){
+    plateau.placeRover("5 5", rover);
+    try {
+      plateau.moveRover("5 5", "6 5", rover);
+      fail("Expected an IllegalArgumentException to be thrown");
+    } catch(IllegalArgumentException anIllegalArgumentException) {
+      assertEquals("Cannot move outside plateau. Rover stopped at coordinates 5 5",
+        anIllegalArgumentException.getMessage());
+    }
+  }
+
+  @Test
+  public void willRaiseErrorIfRoverTriesToMoveToCellOccupiedByAnotherRover() {
+    plateau.placeRover("1 2", rover);
+    plateau.placeRover("1 3", rover);
+    try {
+      plateau.moveRover("1 2", "1 3", rover);
+      fail("Expected an IllegalArgumentException to be thrown");
+    } catch(IllegalArgumentException anIllegalArgumentException) {
+      assertEquals("Cannot move rover onto cell occupied by another rover. " +
+        "Rover stopped at coordinates 1 2", anIllegalArgumentException.getMessage());
     }
   }
 
