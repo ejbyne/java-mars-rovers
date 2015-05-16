@@ -16,4 +16,24 @@ public class RoverTest {
     assertSame("N", rover.orientation());
   }
 
+  @Test
+  public void canTurnLeft() {
+    rover.turn("L");
+    assertSame("W", rover.orientation());
+    for (int i = 1; i <= 3; i++) {
+      rover.turn("L");
+    }
+    assertSame("N", rover.orientation());
+  }
+
+  @Test
+  public void canTurnRight() {
+    rover.turn("R");
+    assertSame("E", rover.orientation());
+    for (int i = 1; i <= 3; i++) {
+      rover.turn("R");
+    }
+    assertSame("N", rover.orientation());
+  }
+
 }
