@@ -12,6 +12,14 @@ public class Plateau {
     return grid;
   }
 
+  public Cell getCell(String coords) {
+    return grid.get(coords);
+  }
+
+  public void placeRover(String coords, Rover rover) {
+    getCell(coords).setContent(rover);
+  }
+
   private void createGrid(String maxCoords) {
     for (int x = 0; x <= Integer.parseInt(maxCoords.split(" ")[0]); x++) {
       for (int y = 0; y <= Integer.parseInt(maxCoords.split(" ")[1]); y++) {

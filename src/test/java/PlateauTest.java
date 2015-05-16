@@ -6,12 +6,12 @@ import org.junit.Before;
 public class PlateauTest {
 
   private Plateau plateau;
-  private Cell cell;
+  private Rover rover;
 
   @Before
   public void beforePlateauTest() {
     plateau = new Plateau("5 5");
-    cell = mock(Cell.class);
+    rover = mock(Rover.class);
   }
 
   @Test
@@ -24,6 +24,18 @@ public class PlateauTest {
     for (Object value: plateau.getGrid().values()) {
       assertSame(Cell.class, value.getClass());
     }
+  }
+
+  @Test
+  public void canReturnRequestedCell() {
+    assertSame(Cell.class, plateau.getCell("1 2").getClass());
+  }
+
+  @Test
+  public void canPlaceRoverOnCell() {
+    String coords = "1 2";
+    plateau.placeRover(coords, rover);
+    assertSame(rover, plateau.getCell("1 2").getContent());
   }
 
 }
