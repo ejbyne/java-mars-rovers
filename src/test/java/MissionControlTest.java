@@ -36,23 +36,25 @@ public class MissionControlTest {
     }
   }
 
+  @Before
+  public void beforeIssuingCommands() {
+    missionControl.selectRover("1 2 N");
+  }
+
   @Test
   public void canTurnRoverInSpecifiedDirection() {
-    missionControl.selectRover("1 2 N");
     missionControl.commandRover("L");
     assertEquals("W", missionControl.getRoverOrientation());
   }
 
   @Test
   public void canMoveRoverinDirectionItIsFacing() {
-    missionControl.selectRover("1 2 N");
     missionControl.commandRover("M");
     verify(plateau).moveRover("1 2", "1 3", missionControl.getRover());
   }
 
   @Test
   public void canProvideSeriesOfCommands() {
-    missionControl.selectRover("1 2 N");
     missionControl.commandRover("LMLMLMLMM");
     assertEquals("N", missionControl.getRoverOrientation());
     verify(plateau, times(5)).moveRover(anyString(), anyString(), anyObject());
@@ -60,7 +62,6 @@ public class MissionControlTest {
 
   @Test
   public void willNotAcceptInvalidCommands() {
-    missionControl.selectRover("1 2 N");
     try {
       missionControl.commandRover("");
       fail("Expected an IllegalArgumentException to be thrown");
