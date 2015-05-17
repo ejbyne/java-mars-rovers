@@ -58,4 +58,21 @@ public class MissionControlTest {
     verify(plateau, times(5)).moveRover(anyString(), anyString(), anyObject());
   }
 
+  @Test
+  public void willNotAcceptInvalidCommands() {
+    missionControl.selectRover("1 2 N");
+    try {
+      missionControl.commandRover("");
+      fail("Expected an IllegalArgumentException to be thrown");
+    } catch(IllegalArgumentException anIllegalArgumentException) {
+      assertSame("Invalid command", anIllegalArgumentException.getMessage());
+    }
+    try {
+      missionControl.commandRover("Z");
+      fail("Expected an IllegalArgumentException to be thrown");
+    } catch(IllegalArgumentException anIllegalArgumentException) {
+      assertSame("Invalid command", anIllegalArgumentException.getMessage());
+    }    
+  }
+
 }

@@ -28,6 +28,7 @@ public class MissionControl {
   }
 
   public void commandRover(String commands) {
+    areValidCommands(commands);
     String[] commandArray = commands.split("");
     for (int i = 0; i < commandArray.length; i++) {
       if (isTurnCommand(commandArray[i])) {
@@ -44,6 +45,14 @@ public class MissionControl {
     if (!matcher.find()) {
       throw new IllegalArgumentException("Invalid position");
     }
+  }
+
+  private void areValidCommands(String commands) {
+    Pattern pattern = Pattern.compile("^[LRM]+$");
+    Matcher matcher = pattern.matcher(commands);
+    if (!matcher.find()) {
+      throw new IllegalArgumentException("Invalid command");
+    }  
   }
 
   private boolean isTurnCommand(String command) {
