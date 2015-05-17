@@ -13,9 +13,8 @@ public class MissionControl {
 
   public void selectRover(String position) {
     isValidPosition(position);
-    String[] positionArray = position.split(" ");
-    roverCoords = String.format("%s %s", positionArray[0], positionArray[1]);
-    rover = new Rover(positionArray[2]);
+    roverCoords = String.format("%s %s", position.split(" ")[0], position.split(" ")[1]);
+    rover = new Rover(position.split(" ")[2]);
     plateau.placeRover(roverCoords, rover);
   }
 
@@ -29,14 +28,7 @@ public class MissionControl {
 
   public void commandRover(String commands) {
     areValidCommands(commands);
-    String[] commandArray = commands.split("");
-    for (int i = 0; i < commandArray.length; i++) {
-      if (isTurnCommand(commandArray[i])) {
-        turnRover(commandArray[i]);
-      } else if (isMoveCommand(commandArray[i])) {
-        moveRover();
-      }
-    }
+    issueCommands(commands.split(""));
   }
 
   private void isValidPosition(String position) {
@@ -53,6 +45,16 @@ public class MissionControl {
     if (!matcher.find()) {
       throw new IllegalArgumentException("Invalid command");
     }  
+  }
+
+  private void issueCommands(String[] commands) {
+    for (int i = 0; i < commands.length; i++) {
+      if (isTurnCommand(commands[i])) {
+        turnRover(commands[i]);
+      } else if (isMoveCommand(commands[i])) {
+        moveRover();
+      }
+    }
   }
 
   private boolean isTurnCommand(String command) {
