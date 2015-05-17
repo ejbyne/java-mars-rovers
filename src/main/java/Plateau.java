@@ -1,10 +1,13 @@
 import java.util.TreeMap;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 public class Plateau {
 
   private TreeMap<String, Cell> grid = new TreeMap<String, Cell>();
 
   public Plateau(String maxCoords) {
+    areValidMaxCoords(maxCoords);
     createGrid(maxCoords);
   }
 
@@ -25,6 +28,14 @@ public class Plateau {
     areValidMoveCoords(startCoords, endCoords);
     getCell(startCoords).setContent(null);
     getCell(endCoords).setContent(rover);
+  }
+
+  private void areValidMaxCoords(String maxCoords) {
+    Pattern pattern = Pattern.compile("^\\d\\s\\d$");
+    Matcher matcher = pattern.matcher(maxCoords);
+    if (!matcher.find()) {
+      throw new IllegalArgumentException("Invalid coordinates");
+    }
   }
 
   private void createGrid(String maxCoords) {

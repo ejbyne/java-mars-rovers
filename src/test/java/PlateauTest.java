@@ -15,6 +15,16 @@ public class PlateauTest {
   }
 
   @Test
+  public void willRaiseErrorIfInvalidMaxCoords() {
+    try {
+      new Plateau("55");
+      fail("Expected an IllegalArgumentException to be thrown");
+    } catch(IllegalArgumentException anIllegalArgumentException) {
+      assertSame("Invalid coordinates", anIllegalArgumentException.getMessage());
+    }
+  }
+
+  @Test
   public void newInstanceContainsGridAccordingToSpecifiedCoordinates() {
     assertSame(36, plateau.getGrid().size());
   }
