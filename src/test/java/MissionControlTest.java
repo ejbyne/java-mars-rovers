@@ -17,7 +17,7 @@ public class MissionControlTest {
   @Test
   public void canSelectRoverInSpecifiedPosition() {
     missionControl.selectRover("1 2 N");
-    verify(plateau).placeRover(anyString(), anyObject());
+    verify(plateau).placeRover("1 2", missionControl.getRover());
   }
 
   @Test
@@ -25,6 +25,13 @@ public class MissionControlTest {
     missionControl.selectRover("1 2 N");
     missionControl.commandRover("L");
     assertEquals("W", missionControl.getRoverOrientation());
+  }
+
+  @Test
+  public void canMoveRoverinDirectionItIsFacing() {
+    missionControl.selectRover("1 2 N");
+    missionControl.commandRover("M");
+    verify(plateau).moveRover("1 2", "1 3", missionControl.getRover());
   }
 
 }
