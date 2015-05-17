@@ -25,3 +25,7 @@ Change into the cloned directory and run the tests:
 $ cd java-mars-rovers
 $ gradle test
 ```
+
+## To do list
+
+- Put the application on a Java server with a web browser interface
