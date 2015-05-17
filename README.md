@@ -10,3 +10,18 @@ Having previously built a [Ruby version](https://github.com/ejbyne/ruby-mars-rov
 - JUnit
 - Mockito
 - Gradle
+
+## Instructions
+
+This assumes that you have [Gradle](https://gradle.org/) installed on your machine for automated test running.
+
+Clone the repo on your machine:
+```
+$ git clone https://github.com/ejbyne/java-mars-rovers.git
+```
+
+Change into the cloned directory and run the tests:
+```
+$ cd java-mars-rovers
+$ gradle test
+```
