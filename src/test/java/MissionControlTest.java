@@ -42,6 +42,11 @@ public class MissionControlTest {
   }
 
   @Test
+  public void canReturnRoverPosition() {
+    assertEquals("1 2 N", missionControl.getRoverPosition());
+  }
+
+  @Test
   public void canTurnRoverInSpecifiedDirection() {
     missionControl.commandRover("L");
     assertEquals("W", missionControl.getRoverOrientation());

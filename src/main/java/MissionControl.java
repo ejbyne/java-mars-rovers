@@ -15,7 +15,7 @@ public class MissionControl {
     isValidPosition(position);
     roverCoords = String.format("%s %s", position.split(" ")[0], position.split(" ")[1]);
     rover = new Rover(position.split(" ")[2]);
-    plateau.placeRover(roverCoords, rover);
+    plateau.placeRover(roverCoords, getRover());
   }
 
   public Rover getRover() {
@@ -23,7 +23,11 @@ public class MissionControl {
   }
 
   public String getRoverOrientation() {
-    return rover.getOrientation();
+    return getRover().getOrientation();
+  }
+
+  public String getRoverPosition() {
+    return String.format("%s %s", roverCoords, getRoverOrientation());
   }
 
   public void commandRover(String commands) {
@@ -71,7 +75,7 @@ public class MissionControl {
 
   private void moveRover() {
     String newRoverCoords = findNewRoverCoords();
-    plateau.moveRover(roverCoords, newRoverCoords, rover);
+    plateau.moveRover(roverCoords, newRoverCoords, getRover());
   }
 
   private String findNewRoverCoords() {
