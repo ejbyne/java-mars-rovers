@@ -26,13 +26,29 @@ public class MissionControl {
   public void commandRover(String commands) {
     String[] commandArray = commands.split("");
     for (int i = 0; i < commandArray.length; i++) {
-      if (commandArray[i].equals("L") || commandArray[i].equals("R")) {
-        rover.turn(commandArray[i]);
-      } else if (commandArray[i].equals("M")) {
-        String newRoverCoords = findNewRoverCoords();
-        plateau.moveRover(roverCoords, newRoverCoords, rover);
+      if (isTurnCommand(commandArray[i])) {
+        turnRover(commandArray[i]);
+      } else if (isMoveCommand(commandArray[i])) {
+        moveRover();
       }
     }
+  }
+
+  private boolean isTurnCommand(String command) {
+    return command.equals("L") || command.equals("R");
+  }
+
+  private boolean isMoveCommand(String command) {
+    return command.equals("M");
+  }
+
+  private void turnRover(String command) {
+    rover.turn(command);
+  }
+
+  private void moveRover() {
+    String newRoverCoords = findNewRoverCoords();
+    plateau.moveRover(roverCoords, newRoverCoords, rover);
   }
 
   private String findNewRoverCoords() {

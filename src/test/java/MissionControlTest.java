@@ -34,4 +34,12 @@ public class MissionControlTest {
     verify(plateau).moveRover("1 2", "1 3", missionControl.getRover());
   }
 
+  @Test
+  public void canProvideSeriesOfCommands() {
+    missionControl.selectRover("1 2 N");
+    missionControl.commandRover("LMLMLMLMM");
+    assertEquals("N", missionControl.getRoverOrientation());
+    verify(plateau, times(5)).moveRover(anyString(), anyString(), anyObject());
+  }
+
 }
