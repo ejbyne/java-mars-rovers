@@ -22,6 +22,12 @@ public class PlateauTest {
     } catch(IllegalArgumentException anIllegalArgumentException) {
       assertSame("Invalid coordinates", anIllegalArgumentException.getMessage());
     }
+    try {
+      new Plateau("5 Z");
+      fail("Expected an IllegalArgumentException to be thrown");
+    } catch(IllegalArgumentException anIllegalArgumentException) {
+      assertSame("Invalid coordinates", anIllegalArgumentException.getMessage());
+    }
   }
 
   @Test
@@ -63,7 +69,6 @@ public class PlateauTest {
     String startCoords = "1 2";
     String endCoords = "1 3";
     plateau.placeRover(startCoords, rover);
-    System.out.println(plateau.getCell(endCoords).getContent());
     plateau.moveRover(startCoords, endCoords, rover);
     assertSame(null, plateau.getCell(startCoords).getContent());
     assertSame(rover, plateau.getCell(endCoords).getContent());

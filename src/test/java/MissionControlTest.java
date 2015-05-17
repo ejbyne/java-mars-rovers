@@ -21,6 +21,22 @@ public class MissionControlTest {
   }
 
   @Test
+  public void willNotAcceptInvalidPosition() {
+    try {
+      missionControl.selectRover("12N");
+      fail("Expected an IllegalArgumentException to be thrown");
+    } catch(IllegalArgumentException anIllegalArgumentException) {
+      assertSame("Invalid position", anIllegalArgumentException.getMessage());
+    }
+    try {
+      missionControl.selectRover("1 2 Z");
+      fail("Expected an IllegalArgumentException to be thrown");
+    } catch(IllegalArgumentException anIllegalArgumentException) {
+      assertSame("Invalid position", anIllegalArgumentException.getMessage());
+    }
+  }
+
+  @Test
   public void canTurnRoverInSpecifiedDirection() {
     missionControl.selectRover("1 2 N");
     missionControl.commandRover("L");

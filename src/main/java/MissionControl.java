@@ -1,3 +1,6 @@
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
 public class MissionControl {
 
   private Plateau plateau;
@@ -9,6 +12,7 @@ public class MissionControl {
   }
 
   public void selectRover(String position) {
+    isValidPosition(position);
     String[] positionArray = position.split(" ");
     roverCoords = String.format("%s %s", positionArray[0], positionArray[1]);
     rover = new Rover(positionArray[2]);
@@ -31,6 +35,14 @@ public class MissionControl {
       } else if (isMoveCommand(commandArray[i])) {
         moveRover();
       }
+    }
+  }
+
+  private void isValidPosition(String position) {
+    Pattern pattern = Pattern.compile("^\\d\\s\\d\\s[NESW]$");
+    Matcher matcher = pattern.matcher(position);
+    if (!matcher.find()) {
+      throw new IllegalArgumentException("Invalid position");
     }
   }
 
